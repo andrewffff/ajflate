@@ -1,0 +1,158 @@
+
+1                start of final block
+10               format: compressed, dynamic huffman
+
+10100            HLIT = 257 + 20 = 277
+10101            HDIST = 1 + 21 = 22
+1111             HCLEN = 4 + 15 = 19
+
+001              metahuff[16] = 1
+000              metahuff[17] = 0
+101              metahuff[18] = 5
+101              metahuff[0] = 5
+101              metahuff[8] = 5
+101              metahuff[7] = 5
+101              metahuff[9] = 5
+101              metahuff[6] = 5
+101              metahuff[10] = 5
+101              metahuff[5] = 5
+101              metahuff[11] = 5
+101              metahuff[4] = 5
+101              metahuff[12] = 5
+101              metahuff[3] = 5
+101              metahuff[13] = 5
+101              metahuff[2] = 5
+101              metahuff[14] = 5
+101              metahuff[1] = 5
+000              metahuff[15] = 0
+  META HUFFMAN CODES:
+[  0]  10000           [  5]  10101           [ 10]  11010           [ 15]                  
+[  1]  10001           [  6]  10110           [ 11]  11011           [ 16]  0               
+[  2]  10010           [  7]  10111           [ 12]  11100           [ 17]                  
+[  3]  10011           [  8]  11000           [ 13]  11101           [ 18]  11111           
+[  4]  10100           [  9]  11001           [ 14]  11110           
+
+  ## define lengths for 299 literal/length codes ##
+00011
+00011
+110
+110
+110
+110
+110
+110
+110
+110
+110
+110
+110
+110
+110
+110
+110
+110
+110
+110
+110
+110
+110           # 0..127 are all 8 bits
+
+110
+110
+110
+110
+110
+110
+110
+110
+110
+110
+110
+110
+110
+110
+110
+110
+110
+110
+110
+110           # 128..253 are never used, but defined as
+110           #    8 bits to flesh out the huffman table
+
+00001
+00001         # 254, 255 never appear and are absent from the encoding
+
+00011         # 256 is 8 bits
+
+01111
+01111
+110           # 257..264 are 14 bits
+
+10111
+000           # 265..268 are 13 bits
+
+00111
+000           # 269..272 are 12 bits
+
+11011
+000           # 273..276 are 11 bits
+
+#   11101         # To complete the huffman table
+#   01101         # define 277/278 as 6/7 bits long - never used
+
+
+   ## DISTANCE CODES ##
+01011         
+000           # 0..3 are 10 bits
+
+10011
+10011         # 4,5 are 9 bits
+
+00011
+00011         # 6,7 are 8 bits
+
+11101
+11101         # 8,9 are 7 bits
+
+01101
+01101         # 10,11 are 6 bits
+
+10101
+10101         # 12,13 are 5 bits
+
+00101
+00101         # 14,15 are 4 bits
+
+11001
+11001         # 16,17 are 3 bits
+
+01001
+01001         # 18,19 are 2 bits
+
+# no higher codes are present, but we explicitly encode
+#   zero lengths for 20,21 inclusive in order to pad
+#   out the block header to a multiple of 8 bits
+00001
+00001
+
+# end of block header
+
+#00000000
+#00000000
+#00000000
+#00000000
+#00000000
+#00000000
+
+#01111111
+
+#00000000
+#00000000
+#00000000
+#00000000
+#00000000
+#00000000
+#00000000
+#00000000
+
+
